@@ -1,67 +1,114 @@
-# Grand Station Frontend
+# Grand Station API
 
-Grand Station, kullanıcıların anlık verileri takip etmelerini sağlayan bir uygulamadır. Bu proje, React ve ASP.NET kullanılarak geliştirilmiştir.
+Grand Station API, kullanıcıların anlık verileri takip etmelerini sağlayan bir arka uç uygulamasıdır. Bu proje, ASP.NET Core kullanılarak geliştirilmiştir.
 
 ## İçindekiler
 
 - [Özellikler](#özellikler)
 - [Kurulum](#kurulum)
 - [Kullanım](#kullanım)
+- [API Uç Noktaları](#api-uç-noktaları)
+- [Bağımlılıklar](#bağımlılıklar)
 - [Geliştirme](#geliştirme)
 - [Test](#test)
-- [npm İşlemleri](#npm-i̇şlemleri)
-- [Bağımlılıklar](#bağımlılıklar)
 - [Lisans](#lisans)
 
 ## Özellikler
 
+- JWT ile kimlik doğrulama
+- PostgreSQL ile veri depolama
 - Gerçek zamanlı veri güncellemeleri
-- Çoklu dil desteği
-- CSV verisi oluşturma ve indirme
-- Kullanıcı dostu arayüz
+- RESTful API tasarımı
+- Swagger ile API belgeleri
 
 ## Kurulum
 
 ### Gereksinimler
 
-- Node.js (v14 veya üstü)
-- .NET SDK (v6 veya üstü)
+- .NET SDK (v8.0 veya üstü)
+- PostgreSQL
 
 ### Adımlar
 
 1. **Projeyi Klonlayın**
 
    ```bash
-   git clone https://github.com/kullaniciadi/grand-station-frontend.git
-   cd grand-station-frontend
+   git clone https://github.com/kullaniciadi/grand-station-backend.git
+   cd grand-station-backend
    ```
 
 2. **Bağımlılıkları Yükleyin**
 
    ```bash
-   npm install
+   dotnet restore
    ```
 
-3. **Sunucuyu Başlatın**
+3. **Veritabanını Oluşturun**
 
-   - **React Uygulaması:**
+   Veritabanı bağlantı dizesini `appsettings.json` dosyasına ekleyin. Örnek bir bağlantı dizesi:
 
-     ```bash
-     npm start
-     ```
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Host=localhost;Database=grandstation;Username=yourusername;Password=yourpassword"
+   }
+   ```
 
-   - **.NET Sunucusu:**
+4. **Veritabanı Migrations** (Gerekliyse)
 
-     Projeyi ayrı bir dizinde barındırıyorsanız, ilgili .NET projesini başlatmak için:
+   Veritabanı tablolarını oluşturmak için aşağıdaki komutları çalıştırın:
 
-     ```bash
-     cd ../grand-station-backend
-     dotnet run
-     ```
+   ```bash
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
+
+5. **API'yi Başlatın**
+
+   ```bash
+   dotnet run
+   ```
+
+   API, varsayılan olarak `http://localhost:5000` adresinde çalışacaktır.
 
 ## Kullanım
 
-Uygulama, tarayıcınızda `http://localhost:3000` adresinde açılacaktır. Anlık veri güncellemeleri ve diğer özellikler için arayüzü kullanabilirsiniz.
+API uç noktalarına erişmek için HTTP istemcisi (örneğin Postman) kullanabilirsiniz. Temel HTTP yöntemlerini kullanarak API ile etkileşimde bulunabilirsiniz (GET, POST, PUT, DELETE).
+
+## API Uç Noktaları
+
+### Kullanıcılar
+
+- **GET** `/api/users` - Tüm kullanıcıları getirir.
+- **POST** `/api/users` - Yeni bir kullanıcı oluşturur.
+- **GET** `/api/users/{id}` - Belirtilen ID'ye sahip kullanıcıyı getirir.
+- **PUT** `/api/users/{id}` - Belirtilen ID'ye sahip kullanıcıyı günceller.
+- **DELETE** `/api/users/{id}` - Belirtilen ID'ye sahip kullanıcıyı siler.
+
+### Örnek İstek
+
+```http
+GET /api/users HTTP/1.1
+Host: localhost:5000
+Authorization: Bearer <token>
+```
+
+## Bağımlılıklar
+
+Projeniz için gerekli olan NuGet paketleri şunlardır:
+
+- `BCrypt.Net-Next`: 4.0.3
+- `Microsoft.AspNetCore.Authentication.JwtBearer`: 8.0.8
+- `Microsoft.AspNetCore.OpenApi`: 8.0.8
+- `Microsoft.EntityFrameworkCore`: 8.0.8
+- `Microsoft.EntityFrameworkCore.Design`: 8.0.8
+- `Microsoft.EntityFrameworkCore.Tools`: 8.0.8
+- `Microsoft.IdentityModel.Tokens`: 8.1.1
+- `Newtonsoft.Json`: 13.0.3
+- `Npgsql.EntityFrameworkCore.PostgreSQL`: 8.0.8
+- `StackExchange.Redis`: 2.8.16
+- `Swashbuckle.AspNetCore`: 6.4.0
+- `System.IdentityModel.Tokens.Jwt`: 8.1.1
+- `System.Net.WebSockets`: 4.3.0
 
 ## Geliştirme
 
@@ -76,77 +123,13 @@ Uygulama, tarayıcınızda `http://localhost:3000` adresinde açılacaktır. Anl
   git merge yeni-ozellik
   ```
 
-- **Daha Fazla Bilgi**: Projenin mimarisi ve bileşen yapısı hakkında bilgi almak için [Dökümantasyon](DOKUMANTASYON_LINKI)'na bakın.
-
 ## Test
 
 Proje testlerini çalıştırmak için:
 
 ```bash
-npm test
+dotnet test
 ```
-
-## npm İşlemleri
-
-Aşağıdaki `npm` komutları, projenizle ilgili yaygın işlemleri gerçekleştirmenize yardımcı olacaktır:
-
-- **Bağımlılıkları Yüklemek için**:
-
-  ```bash
-  npm install
-  ```
-
-- **Yeni Bir Bağımlılık Eklemek için**:
-
-  ```bash
-  npm install <paket_adi>
-  ```
-
-- **Bir Bağımlılığı Kaldırmak için**:
-
-  ```bash
-  npm uninstall <paket_adi>
-  ```
-
-- **Projeyi Oluşturmak için**:
-
-  ```bash
-  npm run build
-  ```
-
-- **Statik Dosyaları Sunmak için**:
-
-  ```bash
-  npm run serve
-  ```
-
-## Bağımlılıklar
-
-Projeniz için gerekli olan bağımlılıklar şunlardır:
-
-- `@testing-library/jest-dom`: 5.17.0
-- `@testing-library/react`: 13.4.0
-- `@testing-library/user-event`: 13.5.0
-- `@types/jest`: 27.5.2
-- `@types/node`: 16.18.111
-- `@types/react-csv`: 1.1.10
-- `@types/react-dom`: 18.3.0
-- `@types/react`: 18.3.9
-- `axios`: 1.7.7
-- `i18next-http-backend`: 2.6.1
-- `i18next`: 23.15.1
-- `jspdf-autotable`: 3.8.3
-- `jspdf`: 2.5.2
-- `react-csv`: 2.2.2
-- `react-data-table-component`: 7.6.2
-- `react-dom`: 18.3.1
-- `react-i18next`: 15.0.2
-- `react-icons`: 5.3.0
-- `react-router-dom`: 6.26.2
-- `react-scripts`: 5.0.1
-- `react`: 18.3.1
-- `typescript`: 4.9.5
-- `web-vitals`: 2.1.4
 
 ## Lisans
 
