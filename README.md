@@ -33,7 +33,7 @@ Grand Station API, kullanıcıların anlık verileri takip etmelerini sağlayan 
 1. **Projeyi Klonlayın**
 
    ```bash
-   git clone https://github.com/kullaniciadi/grand-station-backend.git
+   git clone https://github.com/ahmetcarrdak/grand-station-backend.git
    cd grand-station-backend
    ```
 
