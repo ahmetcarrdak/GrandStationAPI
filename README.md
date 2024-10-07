@@ -68,7 +68,7 @@ Grand Station API, kullanıcıların anlık verileri takip etmelerini sağlayan 
    dotnet run
    ```
 
-   API, varsayılan olarak `http://localhost:5000` adresinde çalışacaktır.
+   API, varsayılan olarak `http://localhost:5096` adresinde çalışacaktır.
 
 ## Kullanım
 
@@ -88,7 +88,7 @@ API uç noktalarına erişmek için HTTP istemcisi (örneğin Postman) kullanabi
 
 ```http
 GET /api/users HTTP/1.1
-Host: localhost:5000
+Host: localhost:5096
 Authorization: Bearer <token>
 ```
 
