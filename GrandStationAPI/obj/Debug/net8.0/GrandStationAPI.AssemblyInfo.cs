@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GrandStationAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e515e4ecbdfd7773fc8f9d9a071b4684e5829be")]
 [assembly: System.Reflection.AssemblyProductAttribute("GrandStationAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GrandStationAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
