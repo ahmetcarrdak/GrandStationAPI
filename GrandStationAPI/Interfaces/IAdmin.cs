@@ -9,7 +9,6 @@ public interface IAdmin
     Task<Admin> GetAdminById(int id);
     Task<Admin> CreateAdmin(AdminDto adminDto);
     Task<string> UpdateAdmin(int id, AdminDto adminDto);
-    Task<string> DeleteAdmin(int id);
     Task<string> ToggleActivateAdmin(int id);
     Task<string> ToggleDeleteAdmin(int id);
     Task<string> UpdateLastUpdatedProfile(int id);

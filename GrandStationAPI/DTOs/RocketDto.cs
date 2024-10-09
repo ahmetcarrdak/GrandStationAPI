@@ -1,6 +1,6 @@
 namespace GrandStationAPI.DTOs;
 
-public class VehicleDto
+public class RocketDto
 {
     public required string Name { get; set; }
     public required string Type { get; set; }
